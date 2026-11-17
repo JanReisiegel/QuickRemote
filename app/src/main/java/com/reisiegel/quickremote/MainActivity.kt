@@ -26,6 +26,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.reisiegel.quickremote.models.AppDestination
+import com.reisiegel.quickremote.ui.components.AppTopBar
 import com.reisiegel.quickremote.ui.screen.AddRemoteScreen
 import com.reisiegel.quickremote.ui.screen.FavouritesRemotesScreen
 import com.reisiegel.quickremote.ui.screen.ReadRemoteScreen
@@ -51,12 +53,6 @@ fun RemotesApp(){
     Row(modifier = Modifier.fillMaxSize()) {
         Text("Hello, World!")
     }
-}
-
-enum class AppDestination(val route: String, val label: String, val icon: Int){
-    Favourites("favourites","Favourites", R.drawable.ic_favourites),
-    AddRemote("add_remote", "Create", R.drawable.ic_add),
-    ReadNFC("read_nfc", "Read Remote", R.drawable.ic_nfc)
 }
 
 @Composable
@@ -100,6 +96,9 @@ fun MainApp(modifier: Modifier = Modifier) {
                     )
                 }
             }
+        },
+        topBar = {
+            AppTopBar(currentScreen = selectedDestination)
         }
     ) {
         contentPadding -> AppNavHost(navController, startDestination, modifier = Modifier.padding(contentPadding))
