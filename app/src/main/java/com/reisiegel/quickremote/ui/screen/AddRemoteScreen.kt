@@ -18,6 +18,8 @@ import com.reisiegel.quickremote.ui.components.AppTopBar
 fun AddRemoteScreen(
     modifier: Modifier = Modifier
 ){
+
+
     Scaffold(
         modifier = modifier,
         topBar = {
