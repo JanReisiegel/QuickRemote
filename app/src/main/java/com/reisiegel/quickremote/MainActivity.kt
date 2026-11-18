@@ -46,15 +46,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalMaterial3Api
-@Composable
-fun RemotesApp(){
-    val context = LocalContext.current
-    Row(modifier = Modifier.fillMaxSize()) {
-        Text("Hello, World!")
-    }
-}
-
 @Composable
 fun AppNavHost(
     navController: NavHostController,
