@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room3.Database
 import androidx.room3.Room
 import androidx.room3.RoomDatabase
+import com.reisiegel.quickremote.data.local.dao.CatalogDao
 import com.reisiegel.quickremote.data.local.entity.CatalogButtonEntity
 import com.reisiegel.quickremote.data.local.entity.CatalogRemoteEntity
 

@@ -16,7 +16,7 @@ import androidx.room3.PrimaryKey
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["remote_id"])]
+    indices = [Index(value = ["remote_brand", "remote_name"])]
 )
 data class CatalogButtonEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,

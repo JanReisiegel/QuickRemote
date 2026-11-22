@@ -1,6 +1,7 @@
 package com.reisiegel.quickremote.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,16 +19,16 @@ import com.reisiegel.quickremote.ui.components.AppTopBar
 fun ReadRemoteScreen(
     modifier: Modifier = Modifier
 ){
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            AppTopBar(AppDestination.ReadNFC)
+    var selectedBrand: String = ""
+
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
+        if (selectedBrand.isNotEmpty()) {
+            Text(text=selectedBrand)
+        } else {
+            Text(text="No brand selected")
         }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            Text(text = "Read Remote Screen")
-        }
+        Text(text = "Read Remote Screen")
     }
-}
+};

@@ -1,7 +1,9 @@
 package com.reisiegel.quickremote.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,16 +26,9 @@ fun FavouritesRemotesScreen(
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null
 ){
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            AppTopBar(AppDestination.Favourites)
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            Text(text = "Favourites Remotes Screen")
-        }
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
+        Text(text = "Favourites Remotes Screen")
     }
 }

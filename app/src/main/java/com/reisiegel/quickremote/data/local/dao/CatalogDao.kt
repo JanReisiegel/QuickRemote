@@ -55,4 +55,13 @@ interface CatalogDao {
      */
     @Query("SELECT * FROM catalog_buttons WHERE remote_brand = :brand AND remote_name = :name ORDER BY id ASC")
     suspend fun getButtonsForRemote(brand: String, name: String): List<CatalogButtonEntity>
+
+    /**
+     * Get all remotes for brand
+     *
+     * @param brand Brand of remotes
+     * @return [Flow] emitting List of remotes for the specified brand
+     */
+    @Query("SELECT * FROM catalog_remotes WHERE brand = :brand ORDER BY name ASC")
+    fun getBrandRemotes(brand: String): Flow<List<CatalogRemoteEntity>>
 }
