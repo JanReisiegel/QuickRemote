@@ -13,7 +13,7 @@ class RemoteRepository(
 
     fun searchBrands(query: String): Flow<List<String>> = catalogDao.searchBrands(query)
 
-    fun getRemotesByBrand(brand: String): Flow<List<CatalogRemoteEntity>> = catalogDao.getBrandRemotes(brand)
+    fun getRemotesByBrand(brand: String): Flow<List<String>> = catalogDao.getBrandRemotes(brand)
 
-    fun searchRemote(query: String): Flow<List<CatalogRemoteEntity>> = catalogDao.searchRemotes(query)
+    fun searchRemote(query: String): Flow<List<String>> = catalogDao.searchRemotes(query)
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,7 +36,7 @@ fun AddRemoteScreen(
     modifier: Modifier = Modifier
 ){
     val repository = LocalRemoteRepository.current
-    var selectedBrand: String by rememberSaveable { mutableStateOf("Není vybrán") }
+    var selectedBrand: String by rememberSaveable { mutableStateOf("") }
     var searchQuery by rememberSaveable { mutableStateOf("") }
     val brands by remember(searchQuery) {
         if (searchQuery.isBlank()){
@@ -44,22 +45,47 @@ fun AddRemoteScreen(
             repository.searchBrands(searchQuery)
         }
     }.collectAsState(initial = emptyList())
-
+    val remotes by remember(searchQuery, selectedBrand) {
+        if (searchQuery.isBlank()){
+            repository.getRemotesByBrand(selectedBrand)
+        } else {
+            repository.searchRemote(searchQuery)
+        }
+    }.collectAsState(initial = emptyList())
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        Text(text = "Selected brand: $selectedBrand")
-        LazyColumn(
-            modifier = Modifier,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(
-                items = brands,
-                key = {brand -> brand}
-            ){ brand ->
-                BrandElementRow(brand, onClick = { selectedBrand = brand})
+        if (selectedBrand == ""){
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(
+                    items = brands,
+                    key = {brand -> brand}
+                ){ brand ->
+                    BrandElementRow(brand, onClick = { selectedBrand = brand})
+                }
+            }
+        } else {
+            Text("Selected brand: $selectedBrand")
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(
+                    items = remotes,
+                    key = {remote -> remote}
+                ){ remote ->
+                    BrandElementRow(brandName = remote, onClick = {/*tady něco bude*/})
+                }
             }
         }
+
     }
 }
 
@@ -70,7 +96,7 @@ fun BrandElementRow(
 ){
     Row(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .clickable(onClick = onClick)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically

@@ -33,8 +33,8 @@ interface CatalogDao {
      * @param query text to search for
      * @return [Flow] emitting List of matching drivers.
      */
-    @Query("SELECT * FROM catalog_remotes WHERE brand LIKE '%' || :query || '%' OR name LIKE '%' || :query || '%' ORDER BY brand ASC, name ASC LIMIT 50")
-    fun searchRemotes(query: String): Flow<List<CatalogRemoteEntity>>
+    @Query("SELECT name FROM catalog_remotes WHERE brand LIKE '%' || :query || '%' OR name LIKE '%' || :query || '%' ORDER BY brand ASC, name ASC LIMIT 50")
+    fun searchRemotes(query: String): Flow<List<String>>
 
     /**
      * Retrieves a single remote by its ID.
@@ -62,6 +62,6 @@ interface CatalogDao {
      * @param brand Brand of remotes
      * @return [Flow] emitting List of remotes for the specified brand
      */
-    @Query("SELECT * FROM catalog_remotes WHERE brand = :brand ORDER BY name ASC")
-    fun getBrandRemotes(brand: String): Flow<List<CatalogRemoteEntity>>
+    @Query("SELECT name FROM catalog_remotes WHERE brand = :brand ORDER BY name ASC")
+    fun getBrandRemotes(brand: String): Flow<List<String>>
 }

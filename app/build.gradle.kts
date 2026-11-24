@@ -20,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    aaptOptions {
+        noCompress.addAll(listOf("db", "sqlite"))
+    }
+
     buildTypes {
         release {
             optimization {

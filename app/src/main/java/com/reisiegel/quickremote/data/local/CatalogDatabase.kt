@@ -19,15 +19,21 @@ import com.reisiegel.quickremote.data.local.entity.CatalogRemoteEntity
 abstract class CatalogDatabase : RoomDatabase() {
     abstract fun catalogDao(): CatalogDao
     companion object {
+        @Volatile
+        private var INSTANCE: CatalogDatabase? = null
+
         fun getInstance(context: Context): CatalogDatabase {
-            return Room.databaseBuilder(
-                context.applicationContext,
-                CatalogDatabase::class.java,
-                "remotes_catalog.db"
-            )
-                .createFromAsset("database/remotes_catalog.db")
-                .fallbackToDestructiveMigration()
-                .build()
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    CatalogDatabase::class.java,
+                    "remotes_catalog.db"
+                )
+                    .createFromAsset("database/remotes_catalog.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
+                    .also { INSTANCE = it }
+            }
         }
     }
 }

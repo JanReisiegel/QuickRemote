@@ -16,12 +16,18 @@ abstract class UserDatabase: RoomDatabase() {
     abstract fun favouriteDao(): FavouriteDao
 
     companion object{
+        @Volatile
+        private var INSTANCE: UserDatabase? = null
+
         fun getInstance(context: Context): UserDatabase {
-            return Room.databaseBuilder(
-                context.applicationContext,
-                UserDatabase::class.java,
-                "user_remote.db"
-            ).build()
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    UserDatabase::class.java,
+                    "user_remote.db"
+                ).build()
+                .also { INSTANCE = it }
+            }
         }
     }
 }
